@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A very sleepy desktop computer that needs eight attempts before it wakes up."
+    />
+    <meta name="theme-color" content="#090a18" />
+    <title>Five More Minutes</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="app" id="app">
+      <header class="masthead">
+        <a class="brand" href="#computer" aria-label="Five More Minutes, skip to the computer">
+          <span class="brand__status" aria-hidden="true"></span>
+          <span>Five More Minutes</span>
+        </a>
+        <p class="masthead__note">Boot sequence postponed indefinitely.</p>
+      </header>
+
+      <section class="scene" id="computer" aria-labelledby="scene-title" tabindex="-1">
+        <h1 class="visually-hidden" id="scene-title">Wake the sleepy desktop computer</h1>
+
+        <div class="moon-glow" aria-hidden="true"></div>
+        <div class="attempt-panel" aria-label="Wake-up progress">
+          <div class="attempt-panel__copy">
+            <span>Wake attempts</span>
+            <output id="attemptCount" aria-label="Wake attempts">0 / 8</output>
+          </div>
+          <div class="attempt-meter" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="sleep-bubbles" aria-hidden="true">
+          <span>z</span>
+          <span>z</span>
+          <span>Z</span>
+        </div>
+
+        <div class="computer" data-reaction="idle">
+          <div class="monitor" id="monitor">
+            <div class="monitor__case">
+              <div
+                class="screen"
+                id="screen"
+                role="img"
+                aria-label="The computer screen is dark and asleep"
+              >
+                <div class="screen__glow" aria-hidden="true"></div>
+                <div class="screen__scanlines" aria-hidden="true"></div>
+
+                <div class="screen__content">
+                  <svg class="sleepy-face" viewBox="0 0 240 120" aria-hidden="true">
+                    <g class="sleepy-face__eyes">
+                      <path d="M39 49 Q64 67 89 49" />
+                      <path d="M151 49 Q176 67 201 49" />
+                    </g>
+                    <path class="sleepy-face__mouth" d="M105 87 Q120 77 135 87" />
+                  </svg>
+
+                  <p class="screen__message" id="screenMessage">zzZ</p>
+
+                  <div class="update-panel" aria-hidden="true">
+                    <p>Installing nap updates…</p>
+                    <div class="update-progress"><span></span></div>
+                    <small>Do not wake your computer.</small>
+                  </div>
+
+                  <div class="alarm-panel" aria-hidden="true">
+                    <span>Alarm set for</span>
+                    <strong id="alarmTime">--:--</strong>
+                    <small>(probably)</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="monitor__chin">
+                <span class="monitor__label" aria-hidden="true">DREAMSTATION</span>
+                <button
+                  class="power-button"
+                  id="powerButton"
+                  type="button"
+                  aria-describedby="interactionHint"
+                >
+                  <span class="power-button__icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Try to wake the computer</span>
+                </button>
+              </div>
+
+              <svg class="blanket" viewBox="0 0 560 220" aria-hidden="true">
+                <defs>
+                  <pattern id="blanket-stitch" width="24" height="24" patternUnits="userSpaceOnUse">
+                    <path d="M0 12H24M12 0V24" fill="none" stroke="currentColor" stroke-opacity=".16" />
+                  </pattern>
+                </defs>
+                <path
+                  class="blanket__body"
+                  d="M17 58 Q55 31 104 53 T194 50 T286 56 T375 50 T468 55 Q516 37 543 67 L532 207 Q478 184 428 205 Q370 181 316 205 Q257 181 205 205 Q147 180 96 204 Q54 183 27 201 Z"
+                />
+                <path
+                  class="blanket__stitch"
+                  d="M17 58 Q55 31 104 53 T194 50 T286 56 T375 50 T468 55 Q516 37 543 67 L532 207 Q478 184 428 205 Q370 181 316 205 Q257 181 205 205 Q147 180 96 204 Q54 183 27 201 Z"
+                  fill="url(#blanket-stitch)"
+                />
+                <path class="blanket__hem" d="M29 180 Q82 163 132 181 T232 180 T333 181 T433 180 T532 183" />
+              </svg>
+            </div>
+            <div class="monitor__neck" aria-hidden="true"></div>
+            <div class="monitor__base" aria-hidden="true"></div>
+          </div>
+
+          <button
+            class="keyboard"
+            id="keyboard"
+            type="button"
+            aria-label="Keyboard. Press to try waking the computer"
+            aria-describedby="keyboardStatus"
+          >
+            <span class="keyboard__cable" aria-hidden="true"></span>
+            <span class="keyboard__keys" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span class="key-letter">W</span><span class="key-letter">A</span><span class="key-letter">K</span><span class="key-letter">E</span><span></span><span></span>
+              <span></span><span></span><span></span><span class="key-space"></span><span></span><span></span><span></span>
+            </span>
+          </button>
+          <span class="keyboard-status" id="keyboardStatus">Keyboard connected · reluctantly</span>
+        </div>
+
+        <div class="desk" aria-hidden="true">
+          <div class="desk__edge"></div>
+        </div>
+
+        <p class="interaction-hint" id="interactionHint">
+          Press the power button, the keyboard, or <kbd>W</kbd> to wake it.
+        </p>
+      </section>
+
+      <aside class="control-dock" aria-label="Experience controls">
+        <button class="control-button" id="soundToggle" type="button" aria-pressed="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9v6h4l5 4V5L8 9H4Z" />
+            <path class="sound-waves" d="M16 8c1 1 1.5 2.3 1.5 4S17 15 16 16M19 5c2 2 3 4.2 3 7s-1 5-3 7" />
+          </svg>
+          <span id="soundLabel">Sound on</span>
+        </button>
+        <button class="control-button" id="resetButton" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 11a8 8 0 1 0-2.3 6M20 5v6h-6" />
+          </svg>
+          <span>Reset</span>
+        </button>
+      </aside>
+
+      <p class="status-announcement visually-hidden" id="statusAnnouncement" role="status" aria-atomic="true">
+        The computer is asleep. Zero of eight wake attempts.
+      </p>
+    </main>
+  </body>
+</html>
