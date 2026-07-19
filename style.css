@@ -406,6 +406,12 @@ a:focus-visible,
   transform: translateY(0.14rem);
 }
 
+.power-button:focus-visible {
+  box-shadow:
+    0 0 0 4px var(--paper),
+    0 0 0 12px var(--ink);
+}
+
 .power-button__icon {
   position: relative;
   display: block;
@@ -962,6 +968,61 @@ kbd {
 
   .sleep-bubbles {
     bottom: min(68vh, 29rem);
+  }
+}
+
+@media (max-width: 600px) and (max-height: 500px) {
+  .masthead {
+    padding: 0.6rem 1rem;
+  }
+
+  .brand {
+    font-size: 0.7rem;
+  }
+
+  .masthead__note {
+    max-width: 9rem;
+    font-size: 0.52rem;
+  }
+
+  .attempt-panel {
+    top: 3.5rem;
+    left: 1rem;
+    width: 7.5rem;
+    font-size: 0.58rem;
+    transform: none;
+  }
+
+  .computer {
+    bottom: 9.5rem;
+    width: 14rem;
+  }
+
+  .keyboard {
+    top: calc(100% + 1.5rem);
+  }
+
+  .keyboard-status {
+    top: calc(100% + 4.8rem);
+  }
+
+  .sleep-bubbles {
+    display: none;
+  }
+
+  .control-dock {
+    right: 1rem;
+    bottom: 0.75rem;
+    flex-direction: column;
+    transform: none;
+  }
+
+  .interaction-hint {
+    bottom: 0.5rem;
+    left: 1rem;
+    width: 70%;
+    text-align: left;
+    transform: none;
   }
 }
 

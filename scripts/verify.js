@@ -43,6 +43,35 @@ function verifyStaticContracts() {
   assert(html.includes('src="script.js"'), "index.html does not load local script.js");
   assert(!/https?:\/\//i.test(html), "index.html contains an unexpected external URL");
 
+  const sharedTokens = {
+    ink: "#15152a",
+    paper: "#fff5df",
+    coral: "#ff5d5d",
+    blue: "#4f7cff",
+    butter: "#ffd166",
+    mint: "#58d6a9",
+    lilac: "#b695ff",
+  };
+  Object.entries(sharedTokens).forEach(([token, value]) => {
+    assert(css.includes(`--${token}: ${value};`), `Missing exact ${token} token`);
+  });
+  assert(html.includes('href="../TinyChaos/"'), "TinyChaos gallery navigation is missing");
+  assert(html.includes("Five More Minutes by Sudarshan Chaudhari"), "Author attribution is missing");
+  assert(/a:focus-visible[\s\S]*?outline:\s*4px solid var\(--blue\)/.test(css), "Links do not use blue focus");
+  assert(
+    /\.power-button:focus-visible\s*\{[^}]*box-shadow:[^}]*var\(--paper\)[^}]*var\(--ink\)/s.test(css),
+    "Power button focus halo is missing",
+  );
+  assert(!/min-width:\s*320px/.test(css), "Page-level 320px minimum blocks zoom reflow");
+  assert(
+    /@media \(max-width: 600px\) and \(max-height: 500px\)[\s\S]*?\.computer\s*\{[^}]*bottom:\s*9\.5rem;[^}]*width:\s*14rem;/s.test(css),
+    "Short-height computer reflow is missing",
+  );
+  assert(
+    /@media \(max-width: 600px\) and \(max-height: 500px\)[\s\S]*?\.keyboard\s*\{[^}]*top:\s*calc\(100% \+ 1\.5rem\)/s.test(css),
+    "Short-height keyboard reflow is missing",
+  );
+
   for (const match of html.matchAll(/\b(?:aria-describedby|aria-labelledby)="([^"]+)"/g)) {
     for (const reference of match[1].trim().split(/\s+/)) {
       assert(ids.includes(reference), `ARIA references missing ID: ${reference}`);
