@@ -71,6 +71,20 @@ function verifyStaticContracts() {
     /@media \(max-width: 600px\) and \(max-height: 500px\)[\s\S]*?\.keyboard\s*\{[^}]*top:\s*calc\(100% \+ 1\.5rem\)/s.test(css),
     "Short-height keyboard reflow is missing",
   );
+  const narrowQuery = "@media (max-width: 390px) {";
+  const narrowShortQuery = "@media (max-width: 390px) and (max-height: 500px) {";
+  const narrowIndex = css.indexOf(narrowQuery);
+  const narrowShortIndex = css.indexOf(narrowShortQuery);
+  assert(narrowIndex >= 0, "General 390px reflow query is missing");
+  assert(narrowShortIndex > narrowIndex, "390px short-height override must follow the general 390px query");
+  const narrowBlock = css.slice(narrowIndex, narrowShortIndex);
+  const nextQueryIndex = css.indexOf("@media", narrowShortIndex + narrowShortQuery.length);
+  const narrowShortBlock = css.slice(narrowShortIndex, nextQueryIndex);
+  assert(/\.computer\s*\{[^}]*width:\s*86vw;/s.test(narrowBlock), "General 390px computer width changed unexpectedly");
+  assert(
+    /\.computer\s*\{[^}]*width:\s*14rem;/s.test(narrowShortBlock),
+    "390px short-height query does not restore the bounded computer width",
+  );
 
   for (const match of html.matchAll(/\b(?:aria-describedby|aria-labelledby)="([^"]+)"/g)) {
     for (const reference of match[1].trim().split(/\s+/)) {

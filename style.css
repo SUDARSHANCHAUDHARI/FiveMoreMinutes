@@ -1052,6 +1052,12 @@ kbd {
   }
 }
 
+@media (max-width: 390px) and (max-height: 500px) {
+  .computer {
+    width: 14rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
