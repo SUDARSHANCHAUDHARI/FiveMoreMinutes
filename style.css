@@ -1,22 +1,30 @@
 :root {
   color-scheme: dark;
-  --room: #090a18;
-  --room-soft: #11142b;
-  --case: #242a52;
-  --case-light: #343b6b;
-  --case-shadow: #151832;
+  --ink: #15152a;
+  --paper: #fff5df;
+  --coral: #ff5d5d;
+  --blue: #4f7cff;
+  --butter: #ffd166;
+  --mint: #58d6a9;
+  --lilac: #b695ff;
+  --room: var(--ink);
+  --room-soft: #24233f;
+  --case: #2c3c74;
+  --case-light: #3d5297;
+  --case-shadow: var(--ink);
   --screen: #030711;
-  --screen-blue: #8299d8;
+  --screen-blue: var(--blue);
   --blanket: #6c4f86;
-  --blanket-light: #8a69a5;
-  --awake: #9fffd1;
-  --awake-deep: #3bcf9b;
-  --warm: #f7cf87;
-  --text: #e7eafb;
-  --muted: #9299bd;
-  --desk: #171327;
-  --desk-edge: #0c0b15;
-  --display: ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, sans-serif;
+  --blanket-light: var(--lilac);
+  --awake: var(--mint);
+  --awake-deep: #2f9f78;
+  --warm: var(--butter);
+  --text: var(--paper);
+  --muted: #aaa8c4;
+  --desk: var(--room-soft);
+  --desk-edge: var(--ink);
+  --display: Impact, Haettenschweiler, "Arial Narrow Bold", "Franklin Gothic Condensed", sans-serif;
+  --body: Inter, ui-rounded, "SF Pro Rounded", "Segoe UI", sans-serif;
   --utility: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
@@ -25,21 +33,21 @@
 }
 
 html {
-  min-width: 320px;
+  min-width: 0;
   background: var(--room);
 }
 
 body {
-  min-width: 320px;
+  min-width: 0;
   min-height: 100vh;
   min-height: 100svh;
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   color: var(--text);
   background:
     radial-gradient(circle at 76% 14%, rgba(112, 126, 195, 0.12) 0, transparent 28rem),
     linear-gradient(180deg, #0d1025 0%, var(--room) 74%);
-  font-family: var(--display);
+  font-family: var(--body);
 }
 
 button,
@@ -54,7 +62,7 @@ button {
 button:focus-visible,
 a:focus-visible,
 .scene:focus-visible {
-  outline: 3px solid var(--awake);
+  outline: 4px solid var(--blue);
   outline-offset: 4px;
 }
 
@@ -95,6 +103,7 @@ a:focus-visible,
   align-items: center;
   gap: 0.65rem;
   color: var(--text);
+  font-family: var(--display);
   font-size: clamp(0.82rem, 1.5vw, 0.96rem);
   font-weight: 760;
   letter-spacing: 0.01em;
@@ -105,8 +114,8 @@ a:focus-visible,
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
-  background: #e79a9a;
-  box-shadow: 0 0 0.8rem rgba(231, 154, 154, 0.58);
+  background: var(--coral);
+  box-shadow: 0 0 0.8rem rgb(255 93 93 / 58%);
   animation: status-breathe 3s ease-in-out infinite;
 }
 
@@ -116,6 +125,13 @@ a:focus-visible,
   font-family: var(--utility);
   font-size: clamp(0.65rem, 1.3vw, 0.78rem);
   letter-spacing: 0.04em;
+  text-align: right;
+}
+
+.masthead__note a {
+  color: var(--paper);
+  font-weight: 900;
+  text-underline-offset: 0.2em;
 }
 
 .scene {
@@ -640,20 +656,24 @@ kbd {
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 0.85rem;
-  border: 1px solid rgba(163, 173, 216, 0.16);
+  color: var(--ink);
+  border: 3px solid var(--ink);
   border-radius: 0.7rem;
-  color: var(--muted);
-  background: rgba(19, 22, 46, 0.88);
-  box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(0.6rem);
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--blue);
   cursor: pointer;
   transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
 .control-button:hover {
-  border-color: rgba(159, 255, 209, 0.35);
-  color: var(--text);
+  color: var(--ink);
+  background: var(--butter);
   transform: translateY(-0.1rem);
+}
+
+.control-button:active {
+  box-shadow: 1px 1px 0 var(--ink);
+  transform: translateY(0.12rem);
 }
 
 .control-button svg {
@@ -892,7 +912,8 @@ kbd {
 
 @media (max-width: 760px) {
   .masthead__note {
-    display: none;
+    max-width: 10rem;
+    font-size: 0.62rem;
   }
 
   .attempt-panel {
@@ -947,6 +968,10 @@ kbd {
 @media (max-width: 390px) {
   .brand {
     font-size: 0.78rem;
+  }
+
+  .masthead__note span {
+    display: block;
   }
 
   .computer {
